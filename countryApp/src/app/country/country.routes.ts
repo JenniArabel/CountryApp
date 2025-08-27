@@ -1,4 +1,3 @@
-import { HomePageComponent } from './../shared/pages/home-page/home-page.component';
 import { Routes } from '@angular/router';
 import { ByCapitalPageComponent } from './pages/by-capital-page/by-capital-page.component';
 import { CountryLayoutComponent } from './layouts/CountryLayout/CountryLayout.component';
