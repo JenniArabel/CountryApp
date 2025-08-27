@@ -2,12 +2,10 @@ import { HomePageComponent } from './../shared/pages/home-page/home-page.compone
 import { Routes } from '@angular/router';
 import { ByCapitalPageComponent } from './pages/by-capital-page/by-capital-page.component';
 import { CountryLayoutComponent } from './layouts/CountryLayout/CountryLayout.component';
+import { ByCountryPageComponent } from './pages/by-country-page/by-country-page.component';
+import { ByRegionPageComponent } from './pages/by-region-page/by-region-page.component';
 
 export const countryRoutes: Routes = [
-  {
-    path: '',
-    component: HomePageComponent,
-  },
   {
     path: '',
     component: CountryLayoutComponent,
@@ -17,15 +15,19 @@ export const countryRoutes: Routes = [
         component: ByCapitalPageComponent,
       },
       {
+        path: 'by-country',
+        component: ByCountryPageComponent,
+      },
+      {
+        path: 'by-region',
+        component: ByRegionPageComponent,
+      },
+      {
         path: '**',
         redirectTo: 'by-capital',
       },
     ],
   },
-  // {
-  //   path: 'country',
-  //   // Aun no definido
-  // },
 ];
 
 export default countryRoutes;
