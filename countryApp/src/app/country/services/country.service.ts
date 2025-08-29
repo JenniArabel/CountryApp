@@ -12,6 +12,6 @@ export class CountryService {
   searchByCapital( query: string) {
     query = query.toLowerCase();
 
-    return this.http.get('')
+    return this.http.get(`{API_URL}/capital/${query}`);
   }
 }

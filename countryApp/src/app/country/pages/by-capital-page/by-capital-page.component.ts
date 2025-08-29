@@ -11,7 +11,7 @@ import { CountryService } from '../../services/country.service';
 export class ByCapitalPageComponent {
   countryService = inject(CountryService);
 
-  onSearch(value: string){
-    console.log({value});
+  onSearch(query: string){
+    console.log({query});
   }
 }
