@@ -1,3 +1,9 @@
-<country-search-input placeholder="Buscar por capital" (value)="onSearch($event)"/>
+<country-search-input
+  placeholder="Buscar por capital"
+  (value)="onSearch($event)"
+/>
 
-<country-list />
+<country-list [countries]="countries()" />
+<!-- [countries] entre llaves cuadradas xq es para enviar la informacion
+y countries() porque es una signal
+ -->

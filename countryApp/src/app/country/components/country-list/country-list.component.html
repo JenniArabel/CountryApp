@@ -13,7 +13,18 @@
     </thead>
 
     <tbody>
-      <tr></tr>
+      @for (country of countries(); track country.cca2; let index = $index) {
+        <tr>
+           <td> {{ index + 1 }} </td>  <!-- Increment index to start from 1 -->
+          <td> {{ country.flag}} </td> <!-- Emoji de la bandera -->
+          <td>
+            <img [src]="country.flags.svg" [alt]="country.name.common" class="w-10"  /> <!-- Bandera en imagen -->
+          </td>
+          <td>{{ country.name.common }}</td>
+
+        </tr>
+      }
+
     </tbody>
   </table>
 </section>
