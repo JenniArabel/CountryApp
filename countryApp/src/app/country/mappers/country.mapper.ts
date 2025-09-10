@@ -9,7 +9,7 @@ export class CountryMapper {
       cca2: restCountry.cca2, // Código de país de 2 letras
       flag: restCountry.flag, // Icono de la bandera del país
       flagSvg: restCountry.flags.svg, // Bandera del país en formato SVG
-      name: restCountry.name.common, // Nombre común del país
+      name: restCountry.translations['spa'].common ?? 'No Spanish translation available', // Nombre del país en español
       population: restCountry.population, // Población del país
     };
   }
