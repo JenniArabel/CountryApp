@@ -14,17 +14,23 @@
 
     <tbody>
       @for (country of countries(); track country.cca2; let index = $index) {
-        <tr>
-           <td> {{ index + 1 }} </td>  <!-- Increment index to start from 1 -->
-          <td> {{ country.flag}} </td> <!-- Emoji de la bandera -->
-          <td>
-            <img [src]="country.flags.svg" [alt]="country.name.common" class="w-10"  /> <!-- Bandera en imagen -->
-          </td>
-          <td>{{ country.name.common }}</td>
-
-        </tr>
+      <tr>
+        <td>{{ index + 1 }}</td> <!-- Cuenta las capitales listadas desde el 1 # -->
+        <td>{{ country.flag }}</td> <!-- Emoji de la bandera -->
+        <td>
+          <img
+            [src]="country.flagSvg"
+            [alt]="country.name"
+            class="w-10"
+          />
+          <!-- Bandera en imagen -->
+        </td>
+        <td> {{ country.name }} </td>
+        <td> {{ country.capital }} </td>
+        <td> {{ country.population }} </td>
+        <td><a href="" class="link-primary"> Más información </a></td>
+      </tr>
       }
-
     </tbody>
   </table>
 </section>
