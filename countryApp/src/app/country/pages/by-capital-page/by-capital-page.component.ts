@@ -32,7 +32,7 @@ export class ByCapitalPageComponent {
       error: (error) => { // Si la petición falla, entra en el error
         this.isLoading.set(false);
         this.countries.set([]); // Limpio el array de países para que no muestre resultados anteriores
-        this.isError.set(`No se encontró el país con esa capital: ${query}`); // Mensaje de error personalizado
+        this.isError.set(error); // Mensaje de error personalizado
       }
     });
   }

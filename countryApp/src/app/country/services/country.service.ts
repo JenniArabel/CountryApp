@@ -28,7 +28,7 @@ export class CountryService {
         // Aquí puedes manejar el error como desees
         console.error('Error fetching ', error); // Mostrar el error en la consola
 
-        return throwError(() => new Error('No se pudo obtener países con ese query')); // Retornar un nuevo observable con el error
+        return throwError(() => new Error(`No se pudo obtener países con esa ${query}`)); // Retornar un nuevo observable con el error
       })
     );
   }
