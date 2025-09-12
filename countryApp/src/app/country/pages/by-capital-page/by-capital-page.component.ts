@@ -23,17 +23,17 @@ export class ByCapitalPageComponent {
     this.isLoading.set(true);
     this.isError.set(null); // Cada vez que hago una nueva búsqueda, limpio el error anterior
 
-    this.countryService.searchByCapital(query).subscribe((countries) => {
-      //proceso de verificación de errores dentro del subscribe
-      this.isLoading.set(false);
-      this.countries.set(countries);
-
-      // const c = CountryMapper.mapRestCountryArrayToCountryArray(countries);
-      // Mapeo de los países obtenidos a la interfaz Country
-      // Lo sacamos porque no es el lugar adecuado para hacer el mapeo
-      // Porque significaria que todos los lugares donde se use el servicio,
-      // se tenga que hacer el mapeo
-
+    this.countryService.searchByCapital(query).subscribe({
+      // Si la petición es exitosa, entra en el next
+      next: (countries) => {
+        this.isLoading.set(false);
+        this.countries.set(countries);
+      },
+      error: (error) => { // Si la petición falla, entra en el error
+        this.isLoading.set(false);
+        this.countries.set([]); // Limpio el array de países para que no muestre resultados anteriores
+        this.isError.set(`No se encontró el país con esa capital: ${query}`); // Mensaje de error personalizado
+      }
     });
   }
 }

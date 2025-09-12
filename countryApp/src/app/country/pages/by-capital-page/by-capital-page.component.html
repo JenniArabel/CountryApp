@@ -3,7 +3,12 @@
   (value)="onSearch($event)"
 />
 
-<country-list [countries]="countries()" />
+@if (isError()) {
+  <h3>{{ isError() }}</h3>
+} @else {
+  <country-list [countries]="countries()" />
+}
+
 <!-- [countries] entre llaves cuadradas xq es para enviar la informacion
 y countries() porque es una signal
  -->
