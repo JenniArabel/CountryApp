@@ -1,9 +1,10 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, resource, signal } from '@angular/core';
 import { SearchInputComponent } from '../../components/search-input/search-input.component';
 import { CountryListComponent } from '../../components/country-list/country-list.component';
 import { CountryService } from '../../services/country.service';
 import { RESTCountry } from '../../interfaces/rest-countries';
 import { Country } from '../../interfaces/country.interface';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'by-capital-page',
@@ -13,6 +14,23 @@ import { Country } from '../../interfaces/country.interface';
 export class ByCapitalPageComponent {
   countryService = inject(CountryService);
 
+  /* VERSION EXPERIMENTAL - ANGULAR 19+ */
+  query = signal(''); // Señal que almacena el valor del input de búsqueda
+
+  countryResource = resource({
+    // countryResource es un recurso reactivo que tiene muchas properties
+    request: () => ({ query: this.query() }), // La request es una fx que devuelve un objeto [recomendable por si se debe expandir], tambien puede regresar el valor de una señal
+    loader: async ({ request }) => { // La fx loader es asíncrona y devuelve una promesa
+      // CONDICION DE SEGURIDAD
+      if (!request.query) return []; // Si el query está vacío, retornar un array vacío para no hacer la petición a la API
+
+      return await firstValueFrom(
+        this.countryService.searchByCapital(request.query) // Si hay un query, llamar al servicio para buscar países por capital
+      );
+    },
+  });
+  
+  /* VERSION ESTABLE DE REACTIVIDAD CON SIGNALS - MANEJO DE ERRORES EN EL COMPONENTE
   isLoading = signal(false);
   isError = signal<string | null>(null); // El error puede ser un string o null cuando no hay error
   countries = signal<Country[]>([]);
@@ -36,4 +54,5 @@ export class ByCapitalPageComponent {
       }
     });
   }
+  */
 }
