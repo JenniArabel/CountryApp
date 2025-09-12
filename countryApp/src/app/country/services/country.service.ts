@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { RESTCountry } from '../interfaces/rest-countries';
-import { map, Observable } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 import { CountryMapper } from '../mappers/country.mapper';
 import { Country } from '../interfaces/country.interface';
 
@@ -20,8 +20,16 @@ export class CountryService {
     return this.http.get<RESTCountry[]>(`${API_URL}/capital/${query}`).pipe(
       // Aquí puedes agregar operadores de RxJS si es necesario
       // El map de RxJS. Nos permite transformar la data que viene del observable.
-      map((countries) => CountryMapper.mapRestCountryArrayToCountryArray(countries))
+      map((countries) => CountryMapper.mapRestCountryArrayToCountryArray(countries)),
       // Si tenemos mas de un map, las transformaciones que haga el 1er map, las va a recibir el 2do map y asi sucesivamente
+
+      // Manejo de errores con catchError de RxJS (para manejar errores en observables)
+      catchError((error) => {
+        // Aquí puedes manejar el error como desees
+        console.error('Error fetching ', error); // Mostrar el error en la consola
+
+        return throwError(() => new Error('No se pudo obtener países con ese query')); // Retornar un nuevo observable con el error
+      })
     );
   }
 }
