@@ -1,17 +1,22 @@
 <country-search-input
   placeholder="Buscar por capital"
-  (value)="query.set($event)"
+  (value)="onSearch($event)"
 />
 <!--(value)="query.set($event)"  -- VERSION EXPERIMENTAL - ANGULAR 19+ -->
 <!-- (value)="onSearch($event)" -- VERSION ESTABLE -->
 
-
-@if (countryResource.error()) {
-  <h3>{{ countryResource.error() }}</h3>
-} @if ( countryResource.hasValue() ) {
-  <country-list [countries]="countryResource.value()!" />
+@if ( isError() ) {
+<h3>{{ isError() }}</h3>
+} @else {
+<country-list [countries]="countries()" />
 }
 
+<!-- VERSION EXPERIMENTAL - ANGULAR 19+
+ @if ( countryResource.error() ) {
+  <h3> {{ countryResource.error() }} </h3>
+} @if ( countryResource.hasValue() ) {
+  <country-list [countries]="countryResource.value()!" />
+} -->
 
 <!-- [countries] entre llaves cuadradas xq es para enviar la informacion
 y countries() porque es una signal
